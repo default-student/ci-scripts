@@ -2,13 +2,16 @@
 
 echo "Running in '$PWD'"
 
-echo "Getting environment variables from .env file"
+echo "Getting environment variables from ./docker.env file"
 # Load environment variables from .env file
 if [ -f docker.env ]; then
   export $(cat docker.env | grep -v '^#' | xargs)
+else
+  echo "Error: No ./docker.env file found"
+  return
 fi
 
-echo "Checking if BASE_IMAGE_NAME is set: $BASE_IMAGE_NAME"
+echo "BASE_IMAGE_NAME is: $BASE_IMAGE_NAME"
 
 echo $PWD
 echo ./telegraf/*
