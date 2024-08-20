@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 
 # Check if the file path argument is provided
 if [ -z "$1" ]; then
@@ -53,4 +52,5 @@ else
 fi
 
 # Run the Docker container with or without environment files
+echo 'docker run --name "$CONTAINER_NAME" -p "$PORT:$PORT" "${ENV_ARGS[@]}" "$IMAGE_NAME"'
 docker run --name "$CONTAINER_NAME" -p "$PORT:$PORT" "${ENV_ARGS[@]}" "$IMAGE_NAME"
