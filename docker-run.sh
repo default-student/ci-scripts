@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -x
 
 # Check if the file path argument is provided
 if [ -z "$1" ]; then
