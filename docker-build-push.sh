@@ -10,7 +10,7 @@ fi
 dockerfile_path="$1"
 
 # Run the Docker build script and check for success
-if ! ./bin/docker-build.sh "$dockerfile_path"; then
+if ! "$(dirname "$0")/docker-build.sh" "$dockerfile_path"; then
   echo "Some or all Docker Builds failed."
 fi
 
