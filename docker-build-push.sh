@@ -63,6 +63,7 @@ if [ ${#successful_pushes[@]} -gt 0 ]; then
   done
 else
   echo -e "${RED}No images were successfully pushed.${NC}"
+  return 1
 fi
 
 # Process failed pushes
