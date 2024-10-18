@@ -55,6 +55,9 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 NC='\033[0m' # No Color
+# Get current git branch
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+echo "Current branch is: $CURRENT_BRANCH"
 
 # Function to build a Docker image and check the exit code
 build_images() {
@@ -62,7 +65,7 @@ build_images() {
 
 	for dockerfile in "${dockerfiles[@]}"; do
 		local dockerfile_name=$(basename "$dockerfile" .Dockerfile)
-		local tag="${BASE_IMAGE_NAME}${dockerfile_name#Dockerfile.}:latest"
+		local tag="${BASE_IMAGE_NAME}${dockerfile_name#Dockerfile.}:latest-${CURRENT_BRANCH}"
 
 		# Change the working directory to the Dockerfile's directory
 		cd "$BASE_DIR" || exit 1
