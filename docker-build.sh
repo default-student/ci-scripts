@@ -65,7 +65,7 @@ build_images() {
 
 	for dockerfile in "${dockerfiles[@]}"; do
 		local dockerfile_name=$(basename "$dockerfile" .Dockerfile)
-		local tag="${BASE_IMAGE_NAME}${dockerfile_name#Dockerfile.}:latest-${CURRENT_BRANCH}"
+		local tag="${BASE_IMAGE_NAME}${dockerfile_name#Dockerfile.}:${CURRENT_BRANCH}"
 
 		# Change the working directory to the Dockerfile's directory
 		cd "$BASE_DIR" || exit 1
