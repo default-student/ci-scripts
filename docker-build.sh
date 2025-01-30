@@ -66,6 +66,7 @@ build_images() {
 	for dockerfile in "${dockerfiles[@]}"; do
 		local dockerfile_name=$(basename "$dockerfile" .Dockerfile)
 		local tag="${BASE_IMAGE_NAME}${dockerfile_name#Dockerfile.}:${CURRENT_BRANCH}"
+		local platform_arg="${PLATFORM:-linux/amd64}"
 
 		# Change the working directory to the Dockerfile's directory
 		cd "$BASE_DIR" || exit 1
@@ -76,13 +77,13 @@ build_images() {
 		dockerfile="${dockerfile#$BASE_DIR/}"
 
 		# echo dry-run with yellow color
-		echo -e "${YELLOW}docker build $DOCKER_BUILD_ARGS -f "$dockerfile" -t "$tag" .${NC}"
+		echo -e "${YELLOW}docker build $DOCKER_BUILD_ARGS --platform "$platform_arg" -f "$dockerfile" -t "$tag" .${NC}"
 
 		# echo before execution with yellow color
 		echo -e "${YELLOW}Building Docker image with tag: $tag${NC}"
 
 		# Use BUILD_ENVIRONMENT_VARS instead of catting from .env
-		docker build --progress=plain --no-cache $DOCKER_BUILD_ARGS -f "$dockerfile" -t "$tag" .
+		docker build --progress=plain --no-cache $DOCKER_BUILD_ARGS --platform "$platform_arg" -f "$dockerfile" -t "$tag" .
 
 
 		if [ $? -ne 0 ]; then
